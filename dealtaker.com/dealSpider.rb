@@ -3,6 +3,7 @@ require 'nokogiri'
 require 'open-uri'
 require "iconv"
 require "../database/models/deal"
+require "../database/models/store"
 
 class DealsSpider
 
@@ -54,8 +55,11 @@ class DealsSpider
 
     items = get_node(doc,'//item')
     items.each do |item|
-      title = item.xpath('title')
-      deal = Deal.new(:title => title.inner_text)
+      title = item.xpath('title').inner_text
+      description = item.xpath('description').inner_text
+      store = item.xpath('store').inner_text
+      deal = Deal.new(:title => title, :description => description)
+
       deals.push(deal)
     end
 
