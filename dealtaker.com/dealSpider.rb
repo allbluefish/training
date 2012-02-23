@@ -51,25 +51,28 @@ class DealsSpider
 
     file = File.new('D:\Ruby\project\myRuby\dealtaker.com\deals.rss.html')
     doc = Nokogiri::XML(file)
-    deals = Array.new
 
     items = get_node(doc,'//item')
+    #store = Store.find(1)
     items.each do |item|
       title = item.xpath('title').inner_text
-      description = item.xpath('description').inner_text
-      store = item.xpath('store').inner_text
+      description = item.xpath('description').inner_html
+      store_name = description.split('Store:</b>')[1].split(/<br\s*\/?>/i)[0].strip
+      store = Store.find_by_name(store_name)
+      Store.new(:name => store_name).save if store.nil?
+      store = Store.find_by_name(store_name)
       deal = Deal.new(:title => title, :description => description)
-
-      deals.push(deal)
+      store.deals << deal
+      store.save
+      deal.save
     end
 
-    deals
   end
 
 
-  mg = DealsSpider.new
+  #mg = DealsSpider.new
   #count = mg.get_count(doc, 'div.pagination a', 'rel')
-  mg.get_deals_link(3, 'http://www.dealtaker.com/deals/#!/view-list/page-/')
+  #mg.get_deals_link(3, 'http://www.dealtaker.com/deals/#!/view-list/page-/')
 
 
 end

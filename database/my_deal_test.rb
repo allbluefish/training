@@ -9,12 +9,21 @@ class DataBaseTest
 
   deal_spider = DealsSpider.new
 
-  deals = deal_spider.get_xml_deal_link
+  deal_spider.get_xml_deal_link
 
-  deals.each do |d|
-    d.save
-  end
+  #deals = deal_spider.get_xml_deal_link
+  #
+  #deals.each do |d|
+  #  d.save
+  #end
 
-  puts Deal.count
+  #store = Store.where( :name => 'apple')
+  #
+  #store1 = Store.find_by_name('apple')
+  #
+  #puts store[0].id
+  #puts store1.id
+  #
+  #puts Deal.count
 
 end
