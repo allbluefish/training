@@ -53,18 +53,25 @@ class DealsSpider
     doc = Nokogiri::XML(file)
 
     items = get_node(doc,'//item')
-    #store = Store.find(1)
+
     items.each do |item|
       title = item.xpath('title').inner_text
+
       description = item.xpath('description').inner_html
+
       store_name = description.split('Store:</b>')[1].split(/<br\s*\/?>/i)[0].strip
       store = Store.find_by_name(store_name)
       Store.new(:name => store_name).save if store.nil?
       store = Store.find_by_name(store_name)
-      deal = Deal.new(:title => title, :description => description)
+
+      pub_date = item.xpath('pubDate').inner_text
+      date = Time.parse(pub_date)
+
+      deal = Deal.new(:title => title, :description => description, :pubDate => date)
       store.deals << deal
       store.save
-      deal.save
+      #deal.save
+
     end
 
   end

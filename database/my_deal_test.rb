@@ -26,4 +26,9 @@ class DataBaseTest
   #
   #puts Deal.count
 
+  #s = Time.parse('Tue, 14 Feb 2012 23:59:00 -0600')
+
+  #date = s.strftime("%Y-%m-%d")
+
+  #puts date
 end
