@@ -49,28 +49,31 @@ class DealsSpider
 
   def get_xml_deal_link
 
-    file = File.new('E:/Project/Ruby/training/dealtaker.com/deals.rss.html')
+    file = File.open('E:/Project/Ruby/training/dealtaker.com/deals.rss.html')
     doc = Nokogiri::XML(file)
 
     items = get_node(doc,'//item')
 
     items.each do |item|
-      title = item.xpath('title').inner_text
       description = item.xpath('description').inner_html
+
       store_name = description.split('Store:</b>')[1].split(/<br\s*\/?>/i)[0].strip
+      store = Store.find_by_name(store_name)
+      Store.new(:name => store_name).save if store.nil?
+      store = Store.find_by_name(store_name)
 
-      #store = Store.find_by_name(store_name)
-      #Store.new(:name => store_name).save if store.nil?
-      #store = Store.find_by_name(store_name)
+      description_doc = Nokogiri::HTML.parse(description)
+      img = description_doc.xpath('//img/@src').inner_text
 
+      title = item.xpath('title').inner_text
       pub_date = item.xpath('pubDate').inner_text
       date = Time.parse(pub_date)
+      link = item.xpath('link').inner_text.split('?')[0]
 
-      #deal = Deal.new(:title => title, :description => description, :pubDate => date)
-      #store.deals << deal
-      #store.save
-
-      puts date
+      deal = Deal.new(:title => title, :description => description, :pubDate => date, :location => link, :image => img)
+      store.deals << deal
+      store.save
+      #puts img
 
     end
 

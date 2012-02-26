@@ -1,11 +1,11 @@
 require 'rubygems'
 require 'active_record'
 require 'yaml'
-require '../dealtaker.com/dealSpider'
+require '../dealtaker.com/deal_spider'
 
 class DataBaseTest
-  dbconfig = YAML::load(File.open('database.yml'))
-  ActiveRecord::Base.establish_connection(dbconfig)
+ db_config = YAML::load(File.open('database.yml'))
+ ActiveRecord::Base.establish_connection(db_config)
 
   deal_spider = DealsSpider.new
 
