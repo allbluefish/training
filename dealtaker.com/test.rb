@@ -53,7 +53,7 @@ class TestSpider
     items
   end
 
-  def get_xml_deal_link
+  def get_rss_deal
     file = File.new('D:\Ruby\project\myRuby\dealtaker.com\deals.rss.html')
     doc = Nokogiri::XML(file)
 
@@ -74,7 +74,7 @@ class TestSpider
 
   mg = TestSpider.new
   #mg.get_html_deal_link('div.offerText a.DTOff')
-  mg.get_xml_deal_link
+  mg.get_rss_deal
 
 end
 

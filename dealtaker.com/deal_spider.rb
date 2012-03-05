@@ -19,7 +19,7 @@ class DealsSpider
   def get_deals_link(page_count, link)
     for i in 1..page_count.to_i
       deals_link = "#{link}#{i}/"
-      links = get_html_deal_link(deals_link,'div.offerText a.DTOff')
+      links = get_html_deal_link(deals_link, 'div.offerText a.DTOff')
 
       links.each do |l|
         puts l
@@ -30,7 +30,7 @@ class DealsSpider
   # 抓取一个页面上的所有货物
   # @param deals_link [String]
   # @param css [String]
-  def get_html_deal_link(deals_link,css)
+  def get_html_deal_link(deals_link, css)
     links = Array.new
     doc = Nokogiri::HTML(open(deals_link))
     doc.css(css).each do |link|
@@ -39,7 +39,7 @@ class DealsSpider
     links
   end
 
-  def get_node(doc,xpath)
+  def get_node(doc, xpath)
     items = Array.new
     doc.xpath(xpath).each do |link|
       items.push(link)
@@ -47,12 +47,12 @@ class DealsSpider
     items
   end
 
-  def get_xml_deal_link
+  def get_rss_deal
 
-    file = File.open('E:/Project/Ruby/training/dealtaker.com/deals.rss.html')
+    file = File.open("#{File.dirname(__FILE__)}/deals.rss.html")
     doc = Nokogiri::XML(file)
 
-    items = get_node(doc,'//item')
+    items = get_node(doc, '//item')
 
     items.each do |item|
       description = item.xpath('description').inner_html
@@ -73,17 +73,62 @@ class DealsSpider
       deal = Deal.new(:title => title, :description => description, :pubDate => date, :location => link, :image => img)
       store.deals << deal
       store.save
-      #puts img
 
     end
 
   end
 
+  def get_rss_category
 
-  #mg = DealsSpider.new
-  #count = mg.get_count(doc, 'div.pagination a', 'rel')
-  #mg.get_deals_link(3, 'http://www.dealtaker.com/deals/#!/view-list/page-/')
+    file = File.open("#{File.dirname(__FILE__)}/deals.rss.html")
+    doc = Nokogiri::XML(file)
 
+    items = get_node(doc, '//item')
+
+    items.each do |item|
+      categories = item.xpath('category')
+      categories.each do |category|
+        puts category.inner_html.strip
+      end
+    end
+  end
+
+  def get_last_date(date_label)
+    file = File.open("#{File.dirname(__FILE__)}/deals.rss.html")
+    doc = Nokogiri::XML(file)
+
+    dates = get_node(doc, "//item/#{date_label}")
+    s1 = Time.parse(dates.first.inner_text)
+    s2 = Time.parse(dates.last.inner_text)
+    puts Time.now - Time.now
+  end
+
+  def is_old_rss
+    file = File.open("#{File.dirname(__FILE__)}/deals.rss.html")
+    doc = Nokogiri::XML(file)
+    publish_date = doc.xpath('//lastBuildDate').inner_text
+    s = Time.parse(publish_date)
+
+    puts s
+  end
+
+  def test_get_url
+
+    file = File.open("#{File.dirname(__FILE__)}/deals.rss.html")
+    doc = Nokogiri::XML(file)
+
+    items = get_node(doc, '//item')
+
+    items.each do |item|
+    end
+
+    uri = URI.parse("http://a.dealofday.com/167726")
+    str = uri.read
+    p str.base_uri
+
+    doc = Nokogiri::HTML.parse(open('http://a.dealofday.com/167726'))
+    p doc
+  end
 
 end
 
