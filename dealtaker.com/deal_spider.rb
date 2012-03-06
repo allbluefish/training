@@ -2,6 +2,7 @@ require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 require "iconv"
+require 'net/http'
 require "../database/models/deal"
 require "../database/models/store"
 
@@ -122,12 +123,26 @@ class DealsSpider
     items.each do |item|
     end
 
-    uri = URI.parse("http://a.dealofday.com/167726")
+    uri = open("http://a.dealofday.com/167726")
     str = uri.read
-    p str.base_uri
+    #p str.base_uri
 
     doc = Nokogiri::HTML.parse(open('http://a.dealofday.com/167726'))
-    p doc
+    #p doc
+
+    http = Net::HTTP.get('a.dealofday.com','/167726')
+    p http
+
+
+
+    uri = 'http://a.dealofday.com/167726'
+    html_response = nil
+    open(uri) do |http|
+      html_response = http.read
+      #puts http.base_uri
+    end
+    #puts html_response
+
   end
 
 end
