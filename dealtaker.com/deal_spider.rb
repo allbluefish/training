@@ -48,14 +48,18 @@ class DealsSpider
     items
   end
 
-  def get_rss_deal
+  def get_rss_deal(doc)
 
-    file = File.open("#{File.dirname(__FILE__)}/deals.rss.html")
-    doc = Nokogiri::XML(file)
+    #uri = 'http://www.dealtaker.com/feed/offer/order-newest/limit-20/'
+    #doc = Nokogiri::HTML(open(ui))
+
+    #file = File.open("#{File.dirname(__FILE__)}/deals.rss.html")
+    #doc = Nokogiri::XML(file)
 
     items = get_node(doc, '//item')
 
     items.each do |item|
+
       description = item.xpath('description').inner_html
 
       store_name = description.split('Store:</b>')[1].split(/<br\s*\/?>/i)[0].strip
@@ -94,14 +98,9 @@ class DealsSpider
     end
   end
 
-  def get_last_date(date_label)
-    file = File.open("#{File.dirname(__FILE__)}/deals.rss.html")
-    doc = Nokogiri::XML(file)
-
+  def get_last_date(doc,date_label,current_time)
     dates = get_node(doc, "//item/#{date_label}")
-    s1 = Time.parse(dates.first.inner_text)
-    s2 = Time.parse(dates.last.inner_text)
-    puts Time.now - Time.now
+    current_time > Time.parse(dates.first.inner_text)
   end
 
   def is_old_rss
@@ -113,37 +112,6 @@ class DealsSpider
     puts s
   end
 
-  def test_get_url
-
-    file = File.open("#{File.dirname(__FILE__)}/deals.rss.html")
-    doc = Nokogiri::XML(file)
-
-    items = get_node(doc, '//item')
-
-    items.each do |item|
-    end
-
-    uri = open("http://a.dealofday.com/167726")
-    str = uri.read
-    #p str.base_uri
-
-    doc = Nokogiri::HTML.parse(open('http://a.dealofday.com/167726'))
-    #p doc
-
-    http = Net::HTTP.get('a.dealofday.com','/167726')
-    p http
-
-
-
-    uri = 'http://a.dealofday.com/167726'
-    html_response = nil
-    open(uri) do |http|
-      html_response = http.read
-      #puts http.base_uri
-    end
-    #puts html_response
-
-  end
 
 end
 

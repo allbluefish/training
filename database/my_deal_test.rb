@@ -4,8 +4,11 @@ require 'yaml'
 require '../dealtaker.com/deal_spider'
 
 class DataBaseTest
- db_config = YAML::load(File.open('database.yml'))
- ActiveRecord::Base.establish_connection(db_config)
+  db_config = YAML::load(File.open('database.yml'))
+  ActiveRecord::Base.establish_connection(db_config)
+
+  file = File.open("#{File.dirname(__FILE__)}/../dealtaker.com/deals.rss.html")
+  doc = Nokogiri::XML(file)
 
   deal_spider = DealsSpider.new
 
@@ -15,9 +18,8 @@ class DataBaseTest
 
   #deal_spider.get_rss_category
 
-  #deal_spider.get_last_date('pubDate')
+  deal_spider.get_last_date('pubDate',doc)
 
-  deal_spider.test_get_url
 
   #deals = deal_spider.get_xml_deal_link
   #
