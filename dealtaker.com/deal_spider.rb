@@ -48,10 +48,10 @@ class DealsSpider
     items
   end
 
-  def get_rss_deal
+  def get_rss_deal(doc)
 
-    file = File.open("#{File.dirname(__FILE__)}/deals.rss.html")
-    doc = Nokogiri::XML(file)
+    #file = File.open("#{File.dirname(__FILE__)}/deals.rss.html")
+    #doc = Nokogiri::XML(file)
 
     items = get_node(doc, '//item')
 
