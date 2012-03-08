@@ -113,37 +113,5 @@ class DealsSpider
     puts s
   end
 
-  def test_get_url
-
-    file = File.open("#{File.dirname(__FILE__)}/deals.rss.html")
-    doc = Nokogiri::XML(file)
-
-    items = get_node(doc, '//item')
-
-    items.each do |item|
-    end
-
-    uri = open("http://a.dealofday.com/167726")
-    str = uri.read
-    #p str.base_uri
-
-    doc = Nokogiri::HTML.parse(open('http://a.dealofday.com/167726'))
-    #p doc
-
-    http = Net::HTTP.get('a.dealofday.com','/167726')
-    p http
-
-
-
-    uri = 'http://a.dealofday.com/167726'
-    html_response = nil
-    open(uri) do |http|
-      html_response = http.read
-      #puts http.base_uri
-    end
-    #puts html_response
-
-  end
-
 end
 
