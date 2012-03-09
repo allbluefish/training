@@ -59,6 +59,10 @@ class DealsSpider
     items = get_node(doc, '//item')
 
     items.each do |item|
+      deals = Deal.find_by_source('dealtaker.com').order("source DESC")
+      last_time = deals.first.pubDate
+
+
 
       description = item.xpath('description').inner_html
 
@@ -75,7 +79,8 @@ class DealsSpider
       date = Time.parse(pub_date)
       link = item.xpath('link').inner_text.split('?')[0]
 
-      deal = Deal.new(:title => title, :description => description, :pubDate => date, :location => link, :image => img)
+      deal = Deal.new(:title => title, :description => description, :pubDate => date, :location => link, :image => img,
+                                        :source => 'dealtaker.com')
       store.deals << deal
       store.save
 
@@ -100,7 +105,7 @@ class DealsSpider
 
   def get_last_date(doc, date_label, current_time)
     dates = get_node(doc, "//item/#{date_label}")
-    current_time > Time.parse(dates.first.inner_text)
+    current_time < Time.parse(dates.first.inner_text)
   end
 
   def is_old_rss
