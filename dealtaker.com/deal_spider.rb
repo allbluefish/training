@@ -98,7 +98,7 @@ class DealsSpider
     end
   end
 
-  def get_last_date(doc,date_label,current_time)
+  def get_last_date(doc, date_label, current_time)
     dates = get_node(doc, "//item/#{date_label}")
     current_time > Time.parse(dates.first.inner_text)
   end

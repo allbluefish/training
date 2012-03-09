@@ -18,8 +18,7 @@ class DataBaseTest
 
   #deal_spider.get_rss_category
 
-  deal_spider.get_last_date('pubDate',doc)
-
+  deal_spider.get_last_date('pubDate',doc,Time.now)
 
   #deals = deal_spider.get_xml_deal_link
   #
