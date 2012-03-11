@@ -5,6 +5,8 @@ require "iconv"
 require 'net/http'
 require "../database/models/deal"
 require "../database/models/store"
+require "../database/models/category"
+require "../database/models/deal_categoryship"
 
 class DealsSpider
 
@@ -48,6 +50,47 @@ class DealsSpider
     items
   end
 
+  def save_deal(item)
+    description = item.xpath('description').inner_html
+
+    store_name = description.split('Store:</b>')[1].split(/<br\s*\/?>/i)[0].strip
+    store = Store.find_by_name(store_name)
+    Store.new(:name => store_name).save if store.nil?
+    store = Store.find_by_name(store_name)
+
+    description_doc = Nokogiri::HTML.parse(description)
+    img = description_doc.xpath('//img/@src').inner_text
+
+    title = item.xpath('title').inner_text
+    pub_date = item.xpath('pubDate').inner_text
+    date = Time.parse(pub_date)
+    link = item.xpath('link').inner_text.split('?')[0]
+
+    deal = Deal.new(:title => title, :description => description.strip, :pubDate => date, :location => link.strip, :image => img,
+                    :source => 'dealtaker.com')
+
+    categories = item.xpath('category')
+    categories.each do |c|
+      category_name = c.inner_html.strip
+      category = Category.find_by_name(category_name)
+      Category.new(:name => category_name).save if category.nil?
+      c_new = Category.find_by_name(category_name)
+      deal.categories << c_new
+    end
+
+    store.deals << deal
+    store.save
+  end
+
+  def is_old_rss
+    file = File.open("#{File.dirname(__FILE__)}/deals.rss.html")
+    doc = Nokogiri::XML(file)
+    publish_date = doc.xpath('//lastBuildDate').inner_text
+    s = Time.parse(publish_date)
+
+    puts s
+  end
+
   def get_rss_deal(doc)
 
     #uri = 'http://www.dealtaker.com/feed/offer/order-newest/limit-20/'
@@ -57,34 +100,19 @@ class DealsSpider
     #doc = Nokogiri::XML(file)
 
     items = get_node(doc, '//item')
+    deals = Deal.order("pubDate DESC").find_all_by_source('dealtaker.com')
+    count = deals.count
 
     items.each do |item|
-      deals = Deal.find_by_source('dealtaker.com').order("source DESC")
-      last_time = deals.first.pubDate
-
-
-
-      description = item.xpath('description').inner_html
-
-      store_name = description.split('Store:</b>')[1].split(/<br\s*\/?>/i)[0].strip
-      store = Store.find_by_name(store_name)
-      Store.new(:name => store_name).save if store.nil?
-      store = Store.find_by_name(store_name)
-
-      description_doc = Nokogiri::HTML.parse(description)
-      img = description_doc.xpath('//img/@src').inner_text
-
-      title = item.xpath('title').inner_text
-      pub_date = item.xpath('pubDate').inner_text
-      date = Time.parse(pub_date)
-      link = item.xpath('link').inner_text.split('?')[0]
-
-      deal = Deal.new(:title => title, :description => description, :pubDate => date, :location => link, :image => img,
-                                        :source => 'dealtaker.com')
-      store.deals << deal
-      store.save
-
+      if count != 0
+        last_time = deals.first.pubDate
+        pub_date = Time.parse(item.xpath('pubDate').inner_text)
+        save_deal(item) if pub_date > last_time
+      else
+        save_deal(item)
+      end
     end
+
 
   end
 
@@ -103,20 +131,36 @@ class DealsSpider
     end
   end
 
-  def get_last_date(doc, date_label, current_time)
-    dates = get_node(doc, "//item/#{date_label}")
-    current_time < Time.parse(dates.first.inner_text)
+  def is_last_deal_date(doc, date_label, current_time)
+
+    dates = get_node(doc, "#{date_label}")
+    current_time < Time.parse(dates.last.inner_text)
   end
 
-  def is_old_rss
-    file = File.open("#{File.dirname(__FILE__)}/deals.rss.html")
-    doc = Nokogiri::XML(file)
-    publish_date = doc.xpath('//lastBuildDate').inner_text
-    s = Time.parse(publish_date)
-
-    puts s
+  def get_last_deal
+    deals = Deal.order("pubDate DESC").find_all_by_source('dealtaker.com')
+    last_time = deals.first.pubDate
+    p last_time
   end
 
+  def test_category_deal
+    d = Deal.find(82)
+    c1 = Category.find(3)
+    c2 = Category.find(4)
+    #c1 = Category.new(:name => 'blue')
+    #c2 = Category.new(:name => 'red')
+    #dc1 = DealCategoryship.new(:deal => d, :category => c1)
+    #dc2 = DealCategoryship.new(:deal => d, :category => c2)
+    #d.deal_categoryships << dc1
+    #d.deal_categoryships << dc2
+    #d.save
+
+    #d.categories << c1
+    #d.categories << c2
+
+    p c1.deals.size
+    p d.categories.size
+  end
 
 end
 

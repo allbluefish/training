@@ -3,6 +3,6 @@ encoding: utf8
 reconnect: false
 database: deals_test
 pool: 5
-username: state
-password: state
+username: root
+password: root
 host: localhost

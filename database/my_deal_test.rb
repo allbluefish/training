@@ -12,13 +12,15 @@ class DataBaseTest
 
   deal_spider = DealsSpider.new
 
-  #deal_spider.get_rss_deal
+  deal_spider.get_rss_deal(doc)
+
+  #deal_spider.test_category_deal
 
   #deal_spider.is_old_rss
 
   #deal_spider.get_rss_category
 
-  deal_spider.get_last_date('pubDate',doc,Time.now)
+  #deal_spider.get_last_deal
 
   #deals = deal_spider.get_xml_deal_link
   #
