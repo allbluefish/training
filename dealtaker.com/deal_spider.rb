@@ -52,6 +52,8 @@ class DealsSpider
 
   def save_deal(item)
     description = item.xpath('description').inner_html
+    # 剔除 description 中无用的字符串
+    description_no_html = description.gsub(/<\/?.*?>/, '').gsub('Get this Deal', '')
 
     store_name = description.split('Store:</b>')[1].split(/<br\s*\/?>/i)[0].strip
     store = Store.find_by_name(store_name)
@@ -66,8 +68,8 @@ class DealsSpider
     date = Time.parse(pub_date)
     link = item.xpath('link').inner_text.split('?')[0]
 
-    deal = Deal.new(:title => title, :description => description.strip, :pubDate => date, :location => link.strip, :image => img,
-                    :source => 'dealtaker.com')
+    deal = Deal.new(:title => title, :description_pure => description_no_html.strip, :description => description,
+                    :pubDate => date, :location => link.strip, :image => img, :source => 'dealtaker.com')
 
     categories = item.xpath('category')
     categories.each do |c|
@@ -91,6 +93,21 @@ class DealsSpider
     puts s
   end
 
+  def get_description(doc)
+    items = get_node(doc, '//item')
+    items.each do |item|
+      des_html = item.xpath('description').inner_html
+      des_text = item.xpath('description').inner_text
+      p des_text
+      #p des_html.sub(/<\/?[a-zA-Z]+[^><]*>/,'asd')
+      p des_html.gsub(/<\/?.*?>/, "").gsub('Get this Deal', '').gsub(/\s/, '')
+      #p des_text
+    end
+
+
+  end
+
+  # 得到源中的所有对象
   def get_rss_deal(doc)
 
     #uri = 'http://www.dealtaker.com/feed/offer/order-newest/limit-20/'
