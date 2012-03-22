@@ -15,7 +15,8 @@
 
         .header, .footer {
             width: 940px;
-            height: 50px;
+            height: 100px;
+
             margin: 10px auto;
             background: #E5E5E5;
         }
@@ -24,11 +25,80 @@
 
 <body>
 
-<div class="header"></div>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="./index.html">DealBlues</a>
+
+            <div class="nav-collapse">
+                <ul class="nav">
+                    <li class="">
+                        <a href="./index.html">Overview</a>
+                    </li>
+                    <li class="">
+                        <a href="./scaffolding.html">Scaffolding</a>
+                    </li>
+                    <li class="">
+                        <a href="./base-css.html">Base CSS</a>
+                    </li>
+                    <li class="active">
+                        <a href="./components.html">Components</a>
+                    </li>
+                    <li class="">
+                        <a href="./javascript.html">Javascript plugins</a>
+                    </li>
+                    <li class="">
+                        <a href="./less.html">Using LESS</a>
+                    </li>
+                    <li class="divider-vertical"></li>
+                    <li class="">
+                        <a href="./download.html">Customize</a>
+                    </li>
+                    <li class="">
+                        <a href="./examples.html">Examples</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="header">213213</div>
 
 <div class="container">
     <div class="row">
+        <div class="span12">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#">Today</a>
+                </li>
+                <li><a href="#">All</a></li>
+                <li><a href="#">Hot</a></li>
+                <li><a href="#">Category</a></li>
+                <li><a href="#">Store</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle"
+                       data-toggle="dropdown"
+                       href="#">
+                        Dropdown
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- links -->
+                    </ul>
+            </ul>
 
+
+        </div>
+    </div>
+
+    <div class="row">
         <div class="span2">
             <div class="well sidebar-nav">
                 <ul class="nav nav-list">
@@ -92,6 +162,7 @@
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
+<script src="assets/js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>
 
 </html>
