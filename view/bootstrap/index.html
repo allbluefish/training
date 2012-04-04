@@ -8,23 +8,16 @@
     <meta name="author" content="">
 
 
-    <link href="css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <!--<link href="css/United/bootstrap.min.css" rel="stylesheet">-->
+    <link href="css/Cerulean/bootstrap.min.css" rel="stylesheet">
 
-    <style type="text/css">
+    <!--<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">-->
+    <link href="assets/css/docs.css" rel="stylesheet">
 
-        .header, .footer {
-            width: 940px;
-            height: 100px;
 
-            margin: 10px auto;
-            background: #E5E5E5;
-        }
-    </style>
 </head>
 
 <body>
-
 
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
@@ -34,73 +27,189 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="./index.html">DealBlues</a>
+            <a class="brand" href="#">Project name</a>
 
             <div class="nav-collapse">
                 <ul class="nav">
-                    <li class="">
-                        <a href="./index.html">Overview</a>
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b
+                                class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
                     </li>
-                    <li class="">
-                        <a href="./scaffolding.html">Scaffolding</a>
-                    </li>
-                    <li class="">
-                        <a href="./base-css.html">Base CSS</a>
-                    </li>
-                    <li class="active">
-                        <a href="./components.html">Components</a>
-                    </li>
-                    <li class="">
-                        <a href="./javascript.html">Javascript plugins</a>
-                    </li>
-                    <li class="">
-                        <a href="./less.html">Using LESS</a>
-                    </li>
+                </ul>
+                <form class="navbar-search pull-left" action="">
+                    <input type="text" class="search-query span2" placeholder="Search">
+                </form>
+                <ul class="nav pull-right">
+                    <li><a href="#">Link</a></li>
                     <li class="divider-vertical"></li>
-                    <li class="">
-                        <a href="./download.html">Customize</a>
-                    </li>
-                    <li class="">
-                        <a href="./examples.html">Examples</a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b
+                                class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>
+            <!-- /.nav-collapse -->
         </div>
     </div>
+    <!-- /navbar-inner -->
+    <!-- /navbar -->
 </div>
 
-<div class="header">213213</div>
-
 <div class="container">
-    <div class="row">
-        <div class="span12">
-            <ul class="nav nav-tabs">
-                <li class="active">
-                    <a href="#">Today</a>
-                </li>
-                <li><a href="#">All</a></li>
-                <li><a href="#">Hot</a></li>
-                <li><a href="#">Category</a></li>
-                <li><a href="#">Store</a></li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle"
-                       data-toggle="dropdown"
-                       href="#">
-                        Dropdown
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <!-- links -->
-                    </ul>
-            </ul>
+    <header class="jumbotron subhead" id="overview">
+        <h1>DealBlues</h1>
 
+        <p class="lead">A preview of changes in this swatch.</p>
+        <!--<div class="subnav">
+          <ul class="nav nav-pills">
+            <li><a href="#typography">Typography</a></li>
+            <li><a href="#navbar">Navbar</a></li>
+            <li><a href="#buttons">Buttons</a></li>
+            <li><a href="#forms">Forms</a></li>
+            <li><a href="#miscellaneous">Miscellaneous</a></li>
+          </ul>
+        </div>-->
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#">Today</a>
+            </li>
+            <li><a href="#">All</a></li>
+            <li><a href="#">Hot</a></li>
+            <li><a href="#">Category</a></li>
+            <li><a href="#">Store</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle"
+                   data-toggle="dropdown"
+                   href="#">
+                    Dropdown
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <!-- links -->
+                </ul>
+        </ul>
+
+
+    </header>
+
+
+    <div class="row-fluid">
+        <div class="span2">
+            <div class="" style="padding: 8px 0;">
+                <ul class="nav nav-list">
+                    <li class="nav-header">
+                        Hot Products
+                    </li>
+                    <li class="active">
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <a href="#">Library</a>
+                    </li>
+                    ...
+                </ul>
+                <ul class="nav nav-list">
+                    <li class="nav-header">Hot Categories</li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li class="nav-header">Hot Brands</li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li class="nav-header">Hot Stores</li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="span8 top">
+            <dl class="dl-horizontal">
+                    <dt>
+                        <img src="http://s3.dlnws.com/images/products/images/991000/991305-large"
+                             width="130"
+                             height="130" alt="Enter the New iPad Sweepstakes from dealnews"
+                             title="Enter the New iPad Sweepstakes from dealnews" border="0">
+                    <dd>
+                        <h3>Heading</h3>
+
+                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
+                            tortor mauris
+                            condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
+                            mollis
+                            euismod. Donec sed odio dui. </p>
+
+                        <p><a class="btn" href="#">View details &raquo;</a></p>
+                    </dd>
+                <dt>
+                    <img src="http://s3.dlnws.com/images/products/images/991000/991305-large"
+                         width="130"
+                         height="130" alt="Enter the New iPad Sweepstakes from dealnews"
+                         title="Enter the New iPad Sweepstakes from dealnews" border="0">
+                <dd>
+                    <h3>Heading</h3>
+
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
+                        tortor mauris
+                        condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
+                        mollis
+                        euismod. Donec sed odio dui. </p>
+
+                    <p><a class="btn" href="#">View details &raquo;</a></p>
+                </dd>
+                <dt>
+                    <img src="http://s3.dlnws.com/images/products/images/991000/991305-large"
+                         width="130"
+                         height="130" alt="Enter the New iPad Sweepstakes from dealnews"
+                         title="Enter the New iPad Sweepstakes from dealnews" border="0">
+                <dd>
+                    <h3>Heading</h3>
+
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
+                        tortor mauris
+                        condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
+                        mollis
+                        euismod. Donec sed odio dui. </p>
+
+                    <p><a class="btn" href="#">View details &raquo;</a></p>
+                </dd>
+            </dl>
 
         </div>
-    </div>
-
-    <div class="row">
         <div class="span2">
-            <div class="well sidebar-nav">
+            <div class="well" style="padding: 8px 0;">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Sidebar</li>
+                    <li class="active"><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                </ul>
+            </div>
+            <div class="well" style="padding: 8px 0;">
                 <ul class="nav nav-list">
                     <li class="nav-header">Sidebar</li>
                     <li class="active"><a href="#">Link</a></li>
@@ -120,39 +229,7 @@
                     <li><a href="#">Link</a></li>
                 </ul>
             </div>
-        </div>
-        <div class="span8">
-            <div class="hero-unit">
-                <h1>Hello, world!</h1>
 
-                <p>This is a template for a simple marketing or informational website. It includes a large callout
-                    called the hero unit and three supporting pieces of content. Use it as a starting point to create
-                    something more unique.</p>
-
-                <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-            </div>
-        </div>
-        <div class="span2">
-            <div class="well sidebar-nav">
-                <ul class="nav nav-list">
-                    <li class="nav-header">Sidebar</li>
-                    <li class="active"><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li class="nav-header">Sidebar</li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li class="nav-header">Sidebar</li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                </ul>
-            </div>
         </div>
     </div>
 </div>
