@@ -2,19 +2,28 @@ require 'rubygems'
 require 'active_record'
 require 'yaml'
 require '../dealtaker.com/deal_spider'
+require 'open-uri'
+require 'nokogiri'
 
 class DataBaseTest
   db_config = YAML::load(File.open('database.yml'))
   ActiveRecord::Base.establish_connection(db_config)
 
-  file = File.open("#{File.dirname(__FILE__)}/../dealtaker.com/deals.rss.html")
-  doc = Nokogiri::XML(file)
+
+  doc = Nokogiri::XML.parse(open('http://www.dealtaker.com/feed/offer/order-newest/limit-20/'))
+
+  #file = File.open("#{File.dirname(__FILE__)}/../dealtaker.com/deals.rss.html")
+  #doc = Nokogiri::XML.parse(file)
 
   deal_spider = DealsSpider.new
 
-  #deal_spider.get_description(doc)
+  deal_spider.get_description(doc)
 
-  deal_spider.get_rss_deal(doc)
+  #deal_spider.get_rss_deal(doc)
+
+  #deal_spider.get_by_tag(doc,'link')
+
+  #deal_spider.get_rss_category(doc)
 
   #deal_spider.test_category_deal
 

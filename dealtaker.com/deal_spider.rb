@@ -53,7 +53,12 @@ class DealsSpider
   def save_deal(item)
     description = item.xpath('description').inner_html
     # 剔除 description 中无用的字符串
+
     description_no_html = description.gsub(/<\/?.*?>/, '').gsub('Get this Deal', '').gsub('&nbsp;', '')
+
+    get_text = description.xpath('//a').inner_text
+
+
 
     store_name = description.split('Store:</b>')[1].split(/<br\s*\/?>/i)[0].strip
     store = Store.find_by_name(store_name)
@@ -97,11 +102,15 @@ class DealsSpider
     items = get_node(doc, '//item')
     items.each do |item|
       des_html = item.xpath('description').inner_html
+      description_doc = Nokogiri::HTML.parse(des_html)
+      get_text = description_doc.xpath('//a').inner_text
+
       des_text = item.xpath('description').inner_text
-      p des_text
-      #p des_html.sub(/<\/?[a-zA-Z]+[^><]*>/,'asd')
-      p des_html.gsub(/<\/?.*?>/, "").gsub('Get this Deal', '').gsub(/\s/, '')
       #p des_text
+      #p des_html.sub(/<\/?[a-zA-Z]+[^><]*>/,'asd')
+      #p des_html.gsub(/<\/?.*?>/, "").gsub('Get this Deal', '').gsub(/\s/, '')
+      #p des_text
+      p get_text
     end
 
 
@@ -133,13 +142,9 @@ class DealsSpider
 
   end
 
-  def get_rss_category
-
-    file = File.open("#{File.dirname(__FILE__)}/deals.rss.html")
-    doc = Nokogiri::XML(file)
+  def get_rss_category(doc)
 
     items = get_node(doc, '//item')
-
     items.each do |item|
       categories = item.xpath('category')
       categories.each do |category|
@@ -147,6 +152,15 @@ class DealsSpider
       end
     end
   end
+
+  def get_by_tag(doc, tag)
+    item = get_node(doc, '//item')
+    item.each { |it|
+      path = it.xpath(tag).inner_html
+      p path
+    }
+  end
+
 
   def is_last_deal_date(doc, date_label, current_time)
 
