@@ -53,7 +53,7 @@ class DealsSpider
   def save_deal(item)
     description = item.xpath('description').inner_html
     # 剔除 description 中无用的字符串
-    description_no_html = description.gsub(/<\/?.*?>/, '').gsub('Get this Deal', '')
+    description_no_html = description.gsub(/<\/?.*?>/, '').gsub('Get this Deal', '').gsub('&nbsp;', '')
 
     store_name = description.split('Store:</b>')[1].split(/<br\s*\/?>/i)[0].strip
     store = Store.find_by_name(store_name)
