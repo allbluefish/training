@@ -2,7 +2,7 @@ require 'rubygems'
 require 'nokogiri'
 
 class TestSpider
-  doc = Nokogiri::HTML.parse(File.new('D:\Ruby\project\myRuby\test.html'))
+  #doc = Nokogiri::HTML.parse(File.new('D:\Ruby\project\myRuby\test.html'))
 
 ####
 # Search for nodes by css
@@ -10,9 +10,9 @@ class TestSpider
 #    puts a_tag.content
 #  end
 
-  doc.css('div.couponCode a').each do |a_tag|
-    puts a_tag.content
-  end
+  #doc.css('div.couponCode a').each do |a_tag|
+  #  puts a_tag.content
+  #end
 
 
 ####
@@ -29,8 +29,13 @@ class TestSpider
 
 ###
 # Find attributes and their values
-  a = doc.search('a').first['href']
-  b = doc.search('a').last['href']
-  puts a,b
-  puts "############"
+#  a = doc.search('a').first['href']
+#  b = doc.search('a').last['href']
+#  puts a,b
+#  puts "############"
+
+  p "hello".rindex('h')
+
+
+  "aaaa".each_char { |e| p e }
 end

@@ -1,7 +1,7 @@
 adapter: mysql
 encoding: utf8
 reconnect: false
-database: dealblues_development
+database: deals_test
 pool: 5
 username: root
 password:

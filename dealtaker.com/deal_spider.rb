@@ -56,7 +56,7 @@ class DealsSpider
 
     description_no_html = description.gsub(/<\/?.*?>/, '').gsub('Get this Deal', '').gsub('&nbsp;', '')
 
-    get_text = description.xpath('//a').inner_text
+    #get_text = description.xpath('//a').inner_text
 
 
 
@@ -80,9 +80,11 @@ class DealsSpider
     categories.each do |c|
       category_name = c.inner_html.strip
       category = Category.find_by_name(category_name)
-      Category.new(:name => category_name).save if category.nil?
+      Category.new(:name => category_name, :count => 0).save if category.nil?
       c_new = Category.find_by_name(category_name)
       deal.categories << c_new
+      count = c_new.count
+      c_new.update_attribute('count', count + 1)
     end
 
     store.deals << deal

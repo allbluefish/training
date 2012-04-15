@@ -10,16 +10,16 @@ class DataBaseTest
   ActiveRecord::Base.establish_connection(db_config)
 
 
-  doc = Nokogiri::XML.parse(open('http://www.dealtaker.com/feed/offer/order-newest/limit-20/'))
+  #doc = Nokogiri::XML.parse(open('http://www.dealtaker.com/feed/offer/order-newest/limit-20/'))
 
-  #file = File.open("#{File.dirname(__FILE__)}/../dealtaker.com/deals.rss.html")
-  #doc = Nokogiri::XML.parse(file)
+  file = File.open("#{File.dirname(__FILE__)}/../dealtaker.com/deals.rss.html")
+  doc = Nokogiri::XML.parse(file)
 
   deal_spider = DealsSpider.new
 
-  deal_spider.get_description(doc)
+  #deal_spider.get_description(doc)
 
-  #deal_spider.get_rss_deal(doc)
+  deal_spider.get_rss_deal(doc)
 
   #deal_spider.get_by_tag(doc,'link')
 
