@@ -105,14 +105,14 @@ class DealsSpider
     items.each do |item|
       des_html = item.xpath('description').inner_html
       description_doc = Nokogiri::HTML.parse(des_html)
-      get_text = description_doc.xpath('//a').inner_text
+      button_text = description_doc.xpath('//a').inner_text
 
       des_text = item.xpath('description').inner_text
-      #p des_text
+      p des_text
+      p button_text
       #p des_html.sub(/<\/?[a-zA-Z]+[^><]*>/,'asd')
-      #p des_html.gsub(/<\/?.*?>/, "").gsub('Get this Deal', '').gsub(/\s/, '')
+      p des_text.gsub(/<\/?.*?>/, "").gsub(button_text, '').gsub(/\s/, '')
       #p des_text
-      p get_text
     end
 
 

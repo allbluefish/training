@@ -9,5 +9,9 @@ class TestSpider
   now = Time.now
   d = now.to_i - date.to_i
   p d/(60*60*24)
+
+  p 'blue'.start_with?('B', 'b')
+  p 'Aa'.to_a
+  'Aa'.select { |a| p a }
 end
 
