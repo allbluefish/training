@@ -16,8 +16,11 @@ class DataBaseTest
   doc = Nokogiri::XML.parse(file)
 
   deal_spider = DealsSpider.new
-
   deal_spider.get_description(doc)
+
+
+
+
 
   #deal_spider.get_rss_deal(doc)
 
